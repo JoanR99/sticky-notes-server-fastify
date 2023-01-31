@@ -1,18 +1,19 @@
 import { createServer } from './utils/createServer';
 import prisma from './utils/prisma';
+import { config } from './utils/config';
 
-const server = createServer();
+export const server = createServer();
 
 async function main() {
 	try {
 		await server.listen({
-			port: 3000,
-			host: '0.0.0.0',
+			port: config.PORT,
+			host: config.HOST,
 		});
 
 		console.log('Connected to the server');
 	} catch (e) {
-		server.log.error(e);
+		console.log(e);
 		await prisma.$disconnect();
 		process.exit(1);
 	}

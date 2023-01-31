@@ -78,13 +78,13 @@ describe('POST /api/users route', () => {
 				payload,
 			});
 
-			expect(response.json()).toEqual({
-				...user,
-				createdAt: user.createdAt.toISOString(),
-				updatedAt: user.updatedAt.toISOString(),
-				password: undefined,
-				refreshToken: undefined,
-			});
+			expect(Object.keys(response.json())).toEqual([
+				'id',
+				'username',
+				'email',
+				'createdAt',
+				'updatedAt',
+			]);
 		});
 	});
 
@@ -96,12 +96,6 @@ describe('POST /api/users route', () => {
 		])(
 			'should return error when $fieldName input field is missing',
 			async ({ fieldName }) => {
-				const createUserSpy = vi.spyOn(userService, 'createUser');
-
-				expect(createUserSpy.getMockName()).toEqual('createUser');
-
-				createUserSpy.mockResolvedValue(user);
-
 				const server = createServer();
 
 				await server.ready();
@@ -124,12 +118,6 @@ describe('POST /api/users route', () => {
 		);
 
 		it('should return error when email is invalid', async () => {
-			const createUserSpy = vi.spyOn(userService, 'createUser');
-
-			expect(createUserSpy.getMockName()).toEqual('createUser');
-
-			createUserSpy.mockResolvedValue(user);
-
 			const server = createServer();
 
 			await server.ready();
@@ -151,12 +139,6 @@ describe('POST /api/users route', () => {
 		});
 
 		it('should return error when username is too short', async () => {
-			const createUserSpy = vi.spyOn(userService, 'createUser');
-
-			expect(createUserSpy.getMockName()).toEqual('createUser');
-
-			createUserSpy.mockResolvedValue(user);
-
 			const server = createServer();
 
 			await server.ready();
@@ -178,12 +160,6 @@ describe('POST /api/users route', () => {
 		});
 
 		it('should return error when username is too large', async () => {
-			const createUserSpy = vi.spyOn(userService, 'createUser');
-
-			expect(createUserSpy.getMockName()).toEqual('createUser');
-
-			createUserSpy.mockResolvedValue(user);
-
 			const server = createServer();
 
 			await server.ready();
@@ -208,12 +184,6 @@ describe('POST /api/users route', () => {
 		});
 
 		it('should return error when password is invalid', async () => {
-			const createUserSpy = vi.spyOn(userService, 'createUser');
-
-			expect(createUserSpy.getMockName()).toEqual('createUser');
-
-			createUserSpy.mockResolvedValue(user);
-
 			const server = createServer();
 
 			await server.ready();

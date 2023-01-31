@@ -37,7 +37,6 @@ export const userResponseSchema = userSchema.pick({
 	email: true,
 	createdAt: true,
 	updatedAt: true,
-	notes: true,
 });
 
 const createUserSchema = userSchema.pick({
@@ -46,11 +45,26 @@ const createUserSchema = userSchema.pick({
 	password: true,
 });
 
+const loginSchema = z.object({
+	email: z
+		.string({
+			required_error: 'Email is required',
+			invalid_type_error: 'Email must be a string',
+		})
+		.email(),
+	password: z.string({
+		required_error: 'Email is required',
+		invalid_type_error: 'Email must be a string',
+	}),
+});
+
 export type User = z.infer<typeof userSchema>;
 export type CreateUserInput = z.infer<typeof createUserSchema>;
 export type UserResponse = z.infer<typeof userResponseSchema>;
+export type UserLoginInput = z.infer<typeof loginSchema>;
 
 export const { schemas: userSchemas, $ref } = buildJsonSchemas({
 	createUserSchema,
 	userResponseSchema,
+	loginSchema,
 });

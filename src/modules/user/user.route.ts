@@ -1,5 +1,10 @@
 import { FastifyInstance } from 'fastify';
-import { createUserHandler } from './user.controller';
+import {
+	createUserHandler,
+	getNewAccessTokenHandler,
+	loginHandler,
+	logoutHandler,
+} from './user.controller';
 import { $ref } from './user.schema';
 
 async function userRoutes(server: FastifyInstance) {
@@ -15,6 +20,20 @@ async function userRoutes(server: FastifyInstance) {
 		},
 		createUserHandler
 	);
+
+	server.post(
+		'/login',
+		{
+			schema: {
+				body: $ref('loginSchema'),
+			},
+		},
+		loginHandler
+	);
+
+	server.post('/logout', logoutHandler);
+
+	server.get('/refresh', getNewAccessTokenHandler);
 }
 
 export default userRoutes;
