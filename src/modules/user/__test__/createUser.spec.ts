@@ -1,5 +1,5 @@
 import { describe, it, vi, expect } from 'vitest';
-import { createServer } from '../../../utils/createServer';
+import { createServer } from '../../../server';
 import * as userService from '../user.service';
 
 const user = {

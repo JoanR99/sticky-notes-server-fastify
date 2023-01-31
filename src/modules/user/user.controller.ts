@@ -35,9 +35,12 @@ export async function loginHandler(
 	const user = await findByEmail(email);
 
 	if (user && (await verifyPasswordMatch(password, user.password))) {
-		const accessToken = await reply.jwtSign({
-			userId: user.id,
-		});
+		const accessToken = await reply.jwtSign(
+			{
+				userId: user.id,
+			},
+			{ expiresIn: '15m' }
+		);
 		const refreshToken = await reply.jwtSign(
 			{
 				userId: user.id,

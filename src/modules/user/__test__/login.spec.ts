@@ -1,5 +1,5 @@
 import { describe, it, vi, expect } from 'vitest';
-import { createServer } from '../../../utils/createServer';
+import { createServer } from '../../../server';
 import { hashPassword } from '../../../utils/hash';
 import * as userService from '../user.service';
 

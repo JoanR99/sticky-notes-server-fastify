@@ -1,8 +1,8 @@
 import Fastify, { FastifyRequest, FastifyReply } from 'fastify';
-import noteRoutes from '../modules/note/note.route';
-import userRoutes from '../modules/user/user.route';
-import { userSchemas } from '../modules/user/user.schema';
-import { config } from './config';
+import noteRoutes from './modules/note/note.route';
+import userRoutes from './modules/user/user.route';
+import { userSchemas } from './modules/user/user.schema';
+import { config } from './utils/config';
 import jwt, { JWT } from '@fastify/jwt';
 import cookie from '@fastify/cookie';
 
@@ -12,7 +12,6 @@ declare module 'fastify' {
 	}
 	export interface FastifyInstance {
 		auth: any;
-		refresh: any;
 	}
 }
 
@@ -31,6 +30,11 @@ export function createServer() {
 	});
 
 	server.register(cookie);
+
+	server.addHook('onRequest', (request, reply, done) => {
+		request.jwt = server.jwt;
+		done();
+	});
 
 	server.decorate(
 		'auth',
