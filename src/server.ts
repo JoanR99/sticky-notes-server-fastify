@@ -5,6 +5,7 @@ import { userSchemas } from './modules/user/user.schema';
 import { config } from './utils/config';
 import jwt, { JWT } from '@fastify/jwt';
 import cookie from '@fastify/cookie';
+import { noteSchemas } from './modules/note/note.schema';
 
 declare module 'fastify' {
 	export interface FastifyRequest {
@@ -12,6 +13,14 @@ declare module 'fastify' {
 	}
 	export interface FastifyInstance {
 		auth: any;
+	}
+}
+
+declare module '@fastify/jwt' {
+	export interface FastifyJWT {
+		user: {
+			userId: number;
+		};
 	}
 }
 
@@ -51,7 +60,7 @@ export function createServer() {
 		return { status: 'ok' };
 	});
 
-	for (const schema of userSchemas) {
+	for (const schema of [...userSchemas, ...noteSchemas]) {
 		server.addSchema(schema);
 	}
 

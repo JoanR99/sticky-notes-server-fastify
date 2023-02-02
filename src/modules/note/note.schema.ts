@@ -1,3 +1,4 @@
+import { buildJsonSchemas } from 'fastify-zod';
 import { z } from 'zod';
 
 export const noteSchema = z.object({
@@ -11,8 +12,20 @@ export const noteSchema = z.object({
 		invalid_type_error: 'Name must be a string',
 	}),
 	isArchive: z.boolean().default(false),
-	autorId: z.number(),
-	color: z.enum(['red', 'yellow']),
+	authorId: z.number(),
+	color: z.enum([
+		'red',
+		'yellow',
+		'orange',
+		'blue',
+		'teal',
+		'green',
+		'purple',
+		'pink',
+		'gray',
+		'brown',
+		'white',
+	]),
 	createdAt: z.date(),
 	updatedAt: z.date(),
 });
@@ -20,8 +33,19 @@ export const noteSchema = z.object({
 const createNoteSchema = noteSchema.pick({
 	title: true,
 	content: true,
-	colorId: true,
+	color: true,
 });
 
 export type Note = z.infer<typeof noteSchema>;
 export type CreateNoteInput = z.infer<typeof createNoteSchema>;
+export type GetNotesQuery = Partial<
+	Pick<Note, 'color'> & { search: string; isArchive: 'false' | 'true' }
+>;
+
+export const { schemas: noteSchemas, $ref } = buildJsonSchemas(
+	{
+		noteSchema,
+		createNoteSchema,
+	},
+	{ $id: 'NoteSchemas' }
+);
