@@ -6,6 +6,8 @@ import { config } from './utils/config';
 import jwt, { JWT } from '@fastify/jwt';
 import cookie from '@fastify/cookie';
 import { noteSchemas } from './modules/note/note.schema';
+import cors from '@fastify/cors';
+import corsOptions from './utils/corsOptions';
 
 declare module 'fastify' {
 	export interface FastifyRequest {
@@ -24,8 +26,23 @@ declare module '@fastify/jwt' {
 	}
 }
 
+const myCustomMessages = {
+	badRequestErrorMessage: 'Format is Authorization: Bearer [token]',
+	noAuthorizationInHeaderMessage: 'Autorization header is missing!',
+	authorizationTokenExpiredMessage: 'Authorization token expired',
+	authorizationTokenInvalid: (err: { message: string }) => {
+		return `Authorization token is invalid: ${err.message}`;
+	},
+};
+
 export function createServer() {
 	const server = Fastify();
+
+	server.register(cors, {
+		origin: corsOptions,
+		optionsSuccessStatus: 200,
+		credentials: true,
+	});
 
 	server.register(jwt, {
 		secret: config.JWT_SECRET,
@@ -36,6 +53,7 @@ export function createServer() {
 		sign: {
 			expiresIn: '10m',
 		},
+		messages: myCustomMessages,
 	});
 
 	server.register(cookie);
