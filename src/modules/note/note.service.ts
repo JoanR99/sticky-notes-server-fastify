@@ -1,5 +1,5 @@
 import prisma from '../../utils/prisma';
-import { CreateNoteInput, GetNotesQuery } from './note.schema';
+import { CreateNoteInput, GetNotesQuery, UpdateNoteInput } from './note.schema';
 
 export async function createNote(noteBody: CreateNoteInput, userId: number) {
 	const note = await prisma.note.create({
@@ -43,4 +43,37 @@ export async function getNotes(userId: number, query: GetNotesQuery) {
 	});
 
 	return notes;
+}
+
+export async function updateNote(noteId: number, noteBody: UpdateNoteInput) {
+	const note = await prisma.note.update({
+		where: {
+			id: noteId,
+		},
+		data: {
+			...noteBody,
+		},
+	});
+
+	return note;
+}
+
+export async function deleteNote(noteId: number) {
+	const note = await prisma.note.delete({
+		where: {
+			id: noteId,
+		},
+	});
+
+	return note;
+}
+
+export async function findBydId(noteId: number) {
+	const note = await prisma.note.findUnique({
+		where: {
+			id: noteId,
+		},
+	});
+
+	return note;
 }

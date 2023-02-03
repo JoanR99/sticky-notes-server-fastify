@@ -1,5 +1,10 @@
 import { FastifyInstance } from 'fastify';
-import { createNoteHandler, getNotesHandler } from './note.controller';
+import {
+	createNoteHandler,
+	getNotesHandler,
+	updateNoteHandler,
+	deleteNoteHandler,
+} from './note.controller';
 import { $ref } from './note.schema';
 
 async function noteRoutes(server: FastifyInstance) {
@@ -23,6 +28,25 @@ async function noteRoutes(server: FastifyInstance) {
 			preHandler: [server.auth],
 		},
 		getNotesHandler
+	);
+
+	server.patch(
+		'/:id',
+		{
+			preHandler: [server.auth],
+			schema: {
+				body: $ref('updateNoteSchema'),
+			},
+		},
+		updateNoteHandler
+	);
+
+	server.delete(
+		'/:id',
+		{
+			preHandler: [server.auth],
+		},
+		deleteNoteHandler
 	);
 }
 

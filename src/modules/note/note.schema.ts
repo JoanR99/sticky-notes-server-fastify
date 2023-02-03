@@ -36,8 +36,18 @@ const createNoteSchema = noteSchema.pick({
 	color: true,
 });
 
+const updateNoteSchema = noteSchema
+	.pick({
+		title: true,
+		content: true,
+		color: true,
+		isArchive: true,
+	})
+	.partial();
+
 export type Note = z.infer<typeof noteSchema>;
 export type CreateNoteInput = z.infer<typeof createNoteSchema>;
+export type UpdateNoteInput = z.infer<typeof updateNoteSchema>;
 export type GetNotesQuery = Partial<
 	Pick<Note, 'color'> & { search: string; isArchive: 'false' | 'true' }
 >;
@@ -46,6 +56,7 @@ export const { schemas: noteSchemas, $ref } = buildJsonSchemas(
 	{
 		noteSchema,
 		createNoteSchema,
+		updateNoteSchema,
 	},
 	{ $id: 'NoteSchemas' }
 );
