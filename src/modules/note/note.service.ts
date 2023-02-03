@@ -40,6 +40,9 @@ export async function getNotes(userId: number, query: GetNotesQuery) {
 				},
 			],
 		},
+		orderBy: {
+			updatedAt: 'desc',
+		},
 	});
 
 	return notes;
