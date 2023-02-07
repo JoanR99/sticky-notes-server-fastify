@@ -6,6 +6,9 @@ import { config } from './utils/config';
 import jwt, { JWT } from '@fastify/jwt';
 import cookie from '@fastify/cookie';
 import { noteSchemas } from './modules/note/note.schema';
+import swagger from '@fastify/swagger';
+import swaggerUI from '@fastify/swagger-ui';
+import { withRefResolver } from 'fastify-zod';
 
 declare module 'fastify' {
 	export interface FastifyRequest {
@@ -47,6 +50,24 @@ export function createServer() {
 		},
 		messages: myCustomMessages,
 	});
+
+	server.register(swagger);
+
+	server.register(
+		swaggerUI,
+		withRefResolver({
+			routePrefix: '/docs',
+			exposeRoute: true,
+			staticCSP: true,
+			openapi: {
+				info: {
+					title: 'Sticky Notes Api',
+					description: 'Api for notes app',
+					version: '2.0.0',
+				},
+			},
+		})
+	);
 
 	server.register(cookie);
 

@@ -4,19 +4,22 @@ import { config } from './utils/config';
 import cors from '@fastify/cors';
 import corsOptions from './utils/corsOptions';
 
-export const server = createServer();
+const server = createServer();
 
 async function main() {
 	try {
-		server.register(cors, {
-			origin: corsOptions,
-			optionsSuccessStatus: 200,
-			credentials: true,
-		});
+		// server.register(cors, {
+		// 	origin: corsOptions,
+		// 	optionsSuccessStatus: 200,
+		// 	credentials: true,
+		// });
+
 		await server.listen({
 			port: config.PORT,
 			host: config.HOST,
 		});
+
+		server.swagger();
 
 		console.log('Connected to the server');
 	} catch (e) {
