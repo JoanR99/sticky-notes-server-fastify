@@ -9,7 +9,7 @@
 		"build": "npx tsc",
 		"p-generate": "prisma generate",
 		"p-m": "prisma migrate deploy",
-		"start": "node dist/index.js",
+		"start": "node dist/app.js",
 		"p-init": "npx prisma init"
 	},
 	"keywords": [],
