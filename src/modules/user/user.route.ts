@@ -26,6 +26,9 @@ async function userRoutes(server: FastifyInstance) {
 		{
 			schema: {
 				body: $ref('loginSchema'),
+				response: {
+					200: $ref('loginResponseSchema'),
+				},
 			},
 		},
 		loginHandler
@@ -33,7 +36,17 @@ async function userRoutes(server: FastifyInstance) {
 
 	server.post('/logout', logoutHandler);
 
-	server.get('/refresh', getNewAccessTokenHandler);
+	server.get(
+		'/refresh',
+		{
+			schema: {
+				response: {
+					200: $ref('loginResponseSchema'),
+				},
+			},
+		},
+		getNewAccessTokenHandler
+	);
 }
 
 export default userRoutes;

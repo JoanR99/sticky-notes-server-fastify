@@ -14,12 +14,11 @@ export async function createNote(noteBody: CreateNoteInput, userId: number) {
 
 export async function getNotes(userId: number, query: GetNotesQuery) {
 	const { isArchive, color, search } = query;
-	const booleanIsArchive = isArchive === 'true';
 
 	const notes = await prisma.note.findMany({
 		where: {
 			authorId: userId,
-			isArchive: booleanIsArchive,
+			isArchive,
 			color,
 			AND: [
 				{

@@ -8,11 +8,11 @@ const server = createServer();
 
 async function main() {
 	try {
-		// server.register(cors, {
-		// 	origin: corsOptions,
-		// 	optionsSuccessStatus: 200,
-		// 	credentials: true,
-		// });
+		server.register(cors, {
+			origin: corsOptions,
+			optionsSuccessStatus: 200,
+			credentials: true,
+		});
 
 		await server.listen({
 			port: config.PORT,

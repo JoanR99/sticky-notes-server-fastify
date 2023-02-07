@@ -26,6 +26,12 @@ async function noteRoutes(server: FastifyInstance) {
 		'/',
 		{
 			preHandler: [server.auth],
+			schema: {
+				querystring: $ref('getNotesQuerySchema'),
+				response: {
+					200: $ref('getNotesResponseSchema'),
+				},
+			},
 		},
 		getNotesHandler
 	);
@@ -35,7 +41,11 @@ async function noteRoutes(server: FastifyInstance) {
 		{
 			preHandler: [server.auth],
 			schema: {
+				params: $ref('requestParams'),
 				body: $ref('updateNoteSchema'),
+				response: {
+					200: $ref('noteSchema'),
+				},
 			},
 		},
 		updateNoteHandler
@@ -45,6 +55,12 @@ async function noteRoutes(server: FastifyInstance) {
 		'/:id',
 		{
 			preHandler: [server.auth],
+			schema: {
+				params: $ref('requestParams'),
+				response: {
+					200: $ref('noteSchema'),
+				},
+			},
 		},
 		deleteNoteHandler
 	);
