@@ -31,13 +31,16 @@ export const userSchema = z.object({
 	notes: z.array(noteSchema),
 });
 
-export const userResponseSchema = userSchema.pick({
-	id: true,
-	username: true,
-	email: true,
-	createdAt: true,
-	updatedAt: true,
-});
+export const userResponseSchema = userSchema
+	.pick({
+		id: true,
+		username: true,
+		email: true,
+	})
+	.extend({
+		createdAt: z.string(),
+		updatedAt: z.string(),
+	});
 
 const createUserSchema = userSchema.pick({
 	username: true,

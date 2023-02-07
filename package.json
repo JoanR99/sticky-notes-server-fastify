@@ -5,7 +5,12 @@
 	"main": "index.js",
 	"scripts": {
 		"dev": "tsnd --respawn --transpile-only --exit-child src/app.ts",
-		"test": "vitest"
+		"test": "vitest",
+		"build": "npx tsc",
+		"p-generate": "prisma generate",
+		"p-m": "prisma migrate deploy",
+		"start": "node dist/index.js",
+		"p-init": "npx prisma init"
 	},
 	"keywords": [],
 	"author": "",
