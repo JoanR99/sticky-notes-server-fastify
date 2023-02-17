@@ -21,7 +21,7 @@ async function main() {
 
 		server.swagger();
 
-		console.log('Connected to the server');
+		console.log(`Connected to the server on port: ${config.PORT}`);
 	} catch (e) {
 		console.log(e);
 		await prisma.$disconnect();
