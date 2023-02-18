@@ -36,7 +36,8 @@ This repository contains the third backend version of Sticky Notes, developed wi
 
 ### Prerequisites
 
-1. You need to have Node.js installed in your machine
+1. You need to have Node.js installed in your machine.
+2. A PostgreSQL database.
 
 ### Installation
 
