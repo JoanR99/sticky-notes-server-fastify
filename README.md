@@ -26,7 +26,7 @@ Sticky Notes is a note app with the functions of creating, editing, archiving, a
 
 ## Stack
 
-![Typescript] ![Fastify] ![Prisma] ![Postgres]
+![Node] ![Typescript] ![Fastify] ![Prisma] ![Postgres]
 
 This repository contains the third backend version of Sticky Notes, developed with Node.js, Typescript and Fastify framework, using Prisma as ORM for a PostgreSQL database. I decided to build this version with Fastify because I wanted to practice with this framework and because it seems like a modern version of Express with default Typescript support.
 
@@ -90,6 +90,7 @@ This repository contains the third backend version of Sticky Notes, developed wi
 - [Linkedin](https://www.linkedin.com/in/joanr99/ 'Linkedin Joan Romero')
 - [Portfolio](https://portfolio-joan-romero.vercel.app/ 'Portfolio Joan Romero')
 
+[node]: https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white
 [typescript]: https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white
 [fastify]: https://img.shields.io/badge/fastify-%23000000.svg?style=for-the-badge&logo=fastify&logoColor=white
 [prisma]: https://img.shields.io/badge/Prisma-3982CE?style=for-the-badge&logo=Prisma&logoColor=white
